@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Item
+from .forms import ItemForm # Import the form
 
 # Create your views here.
 
@@ -13,5 +14,16 @@ def get_todo_list(request):
   
 
 def add_item(request):
-    return render(request, 'todo/add_item.html')
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid(): # Validate the form data
+            form.save()  # Save the form data to the database
+            return redirect('get_todo_list') # Redirect to the homepage or list view
+    
+    form = ItemForm() # Create an empty form for GET requests
+    context = {
+        'form': form     
+    }
+    
+    return render(request, 'todo/add_item.html', context)
   

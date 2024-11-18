@@ -8,19 +8,9 @@
 <body>
     <h1> Add a Todo Item:</h1>
     <form method="Post"action="add">
+        {% csrf_token %}
+        {{ form.as_p }}
         
-        <div>
-            <p> 
-                <label for="id_name">Name: </label>
-                <input type="text"  id="id_name"  name="item-name"  />
-            </p>
-        </div>
-        <div>
-            <p>
-                <label for="id_done">Done </label>
-                <input type="checkbox"  id="id_done"  name="done"  />
-            </p>
-        </div>
         <div>
             <p>
                 <button type="submit"> Add Item</button>
